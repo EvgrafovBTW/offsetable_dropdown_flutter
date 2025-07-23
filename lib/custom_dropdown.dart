@@ -180,6 +180,8 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   final _DropdownType _dropdownType;
 
+  final Offset? overlayOffset;
+
   DropdownFlutter({
     super.key,
     required this.items,
@@ -207,6 +209,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.excludeSelected = true,
     this.enabled = true,
     this.disabledDecoration,
+    this.overlayOffset,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -238,6 +241,7 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   DropdownFlutter.search({
     super.key,
+    this.overlayOffset,
     required this.items,
     required this.onChanged,
     this.controller,
@@ -294,6 +298,7 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   const DropdownFlutter.searchRequest({
     super.key,
+    this.overlayOffset,
     required this.futureRequest,
     required this.onChanged,
     this.futureRequestDelay,
@@ -340,6 +345,7 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   DropdownFlutter.multiSelect({
     super.key,
+    this.overlayOffset,
     required this.items,
     required this.onListChanged,
     this.multiSelectController,
@@ -398,6 +404,7 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   DropdownFlutter.multiSelectSearch({
     super.key,
+    this.overlayOffset,
     required this.items,
     required this.onListChanged,
     this.multiSelectController,
@@ -456,6 +463,7 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   const DropdownFlutter.multiSelectSearchRequest({
     super.key,
+    this.overlayOffset,
     required this.futureRequest,
     required this.onListChanged,
     this.multiSelectController,
@@ -614,6 +622,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
               visibility: widget.visibility,
               overlay: (size, hideCallback) {
                 return _DropdownOverlay<T>(
+                  overlayOffset: widget.overlayOffset,
                   onItemSelect: (T value) {
                     switch (widget._dropdownType) {
                       case _DropdownType.singleSelect:
